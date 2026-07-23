@@ -23,6 +23,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/me")
+    public UserDto getCurrentUser(@AuthenticationPrincipal CustomUserPrincipal principal) {
+        return userService.getUserProfile(principal.getId());
+    }
+
     @GetMapping("/{userId}")
     public UserDto getProfile(@PathVariable Long userId) {
         return userService.getUserProfile(userId);
