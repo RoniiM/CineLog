@@ -20,6 +20,7 @@ public abstract class MovieMapper {
     @Mapping(target = "backdropUrl", expression = "java(buildImageUrl(movie.getBackdropPath()))")
     public abstract MovieDto toDto(Movie movie);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "tmdbId", source = "id")
     @Mapping(target = "posterUrl", expression = "java(buildImageUrl(response.posterPath()))")
     @Mapping(target = "backdropUrl", expression = "java(buildImageUrl(response.backdropPath()))")
