@@ -2,22 +2,22 @@ package com.cinelog.controller;
 
 import com.cinelog.dto.DiaryEntryDto;
 import com.cinelog.dto.DiaryEntryRequest;
+import com.cinelog.security.CustomUserPrincipal;
 import com.cinelog.service.DiaryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/users/{userId}/diary")
 public class DiaryController {
 
     private final DiaryService diaryService;
@@ -26,20 +26,22 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
-    @PostMapping
-    public ResponseEntity<DiaryEntryDto> addEntry(@PathVariable Long userId, @Valid @RequestBody DiaryEntryRequest request) {
-        DiaryEntryDto dto = diaryService.addDiaryEntry(userId, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
-    }
-
-    @GetMapping
+    @GetMapping("/api/v1/users/{userId}/diary")
     public List<DiaryEntryDto> getDiary(@PathVariable Long userId) {
         return diaryService.getUserDiary(userId);
     }
 
-    @DeleteMapping("/{entryId}")
-    public ResponseEntity<Void> deleteEntry(@PathVariable Long userId, @PathVariable Long entryId) {
-        diaryService.deleteDiaryEntry(userId, entryId);
+    @PostMapping("/api/v1/diary")
+    public ResponseEntity<DiaryEntryDto> addEntry(@AuthenticationPrincipal CustomUserPrincipal principal,
+                                                   @Valid @RequestBody DiaryEntryRequest request) {
+        DiaryEntryDto dto = diaryService.addDiaryEntry(principal.getId(), request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @DeleteMapping("/api/v1/diary/{entryId}")
+    public ResponseEntity<Void> deleteEntry(@AuthenticationPrincipal CustomUserPrincipal principal,
+                                             @PathVariable Long entryId) {
+        diaryService.deleteDiaryEntry(principal.getId(), entryId);
         return ResponseEntity.noContent().build();
     }
 }
