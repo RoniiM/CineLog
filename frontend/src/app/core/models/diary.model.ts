@@ -1,0 +1,10 @@
+import { Movie } from './movie.model';
+
+export interface DiaryEntry {
+  id: number;
+  movie: Movie;
+  watchedDate: string;
+  rating: number;
+  review: string | null;
+  createdAt: string;
+}
