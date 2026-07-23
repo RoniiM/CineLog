@@ -1,0 +1,46 @@
+<div class="auth-page">
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Create account</h1>
+
+    <label for="username">Username</label>
+    <input id="username" type="text" formControlName="username" autocomplete="username" />
+    @if (form.controls.username.invalid && form.controls.username.touched) {
+      <app-error-message message="Username is required." />
+    }
+
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" autocomplete="email" />
+    @if (form.controls.email.errors?.['required'] && form.controls.email.touched) {
+      <app-error-message message="Email is required." />
+    }
+    @if (form.controls.email.errors?.['email'] && form.controls.email.touched) {
+      <app-error-message message="Enter a valid email address." />
+    }
+
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" autocomplete="new-password" />
+    @if (form.controls.password.invalid && form.controls.password.touched) {
+      <app-error-message message="Password is required." />
+    }
+
+    <label for="confirmPassword">Confirm password</label>
+    <input id="confirmPassword" type="password" formControlName="confirmPassword" autocomplete="new-password" />
+    @if (form.errors?.['passwordMismatch'] && form.controls.confirmPassword.touched) {
+      <app-error-message message="Passwords do not match." />
+    }
+
+    @if (errorMessage()) {
+      <app-error-message [message]="errorMessage()" />
+    }
+
+    <button type="submit" class="submit-btn" [disabled]="loading()">
+      @if (loading()) {
+        <app-loading-spinner />
+      } @else {
+        Register
+      }
+    </button>
+
+    <p class="switch-link">Already have an account? <a routerLink="/login">Log in</a></p>
+  </form>
+</div>

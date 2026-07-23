@@ -1,0 +1,13 @@
+<article class="movie-card" (click)="onClick()">
+  <div class="poster-wrapper">
+    @if (movie().posterUrl) {
+      <img class="poster" [src]="movie().posterUrl" [alt]="movie().title" loading="lazy" />
+    } @else {
+      <div class="poster-placeholder">No Image</div>
+    }
+  </div>
+  <div class="info">
+    <h3 class="title">{{ movie().title }}</h3>
+    <span class="year">{{ releaseYear() }}</span>
+  </div>
+</article>

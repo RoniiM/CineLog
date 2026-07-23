@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <a class="brand" routerLink="/">CineLog</a>
+
+  @if (authService.isAuthenticated()) {
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Discover</a>
+      <a routerLink="/diary" routerLinkActive="active">Diary</a>
+      <a routerLink="/watchlist" routerLinkActive="active">Watchlist</a>
+      <a routerLink="/profile" routerLinkActive="active">Profile</a>
+    </div>
+
+    <div class="user-section">
+      @if (authService.currentUser()?.avatarUrl) {
+        <img class="avatar" [src]="authService.currentUser()?.avatarUrl" [alt]="authService.currentUser()?.username" />
+      }
+      <span class="username">{{ authService.currentUser()?.username }}</span>
+      <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  } @else {
+    <div class="nav-links">
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/register" routerLinkActive="active">Register</a>
+    </div>
+  }
+</nav>
