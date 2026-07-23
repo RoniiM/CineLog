@@ -39,6 +39,10 @@ export class AuthService {
     );
   }
 
+  setCurrentUser(user: User): void {
+    this._currentUser.set(user);
+  }
+
   register(request: RegisterRequest): Observable<User> {
     return this.http.post<User>(`${environment.apiBaseUrl}/auth/register`, request);
   }

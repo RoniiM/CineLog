@@ -1,0 +1,32 @@
+<div class="diary-page">
+  <h1>My Diary</h1>
+
+  @if (diaryService.loading()) {
+    <div class="state-row">
+      <app-loading-spinner />
+    </div>
+  } @else if (diaryService.entries().length === 0) {
+    <p class="empty-state">You haven't logged any movies yet.</p>
+  } @else {
+    <ul class="diary-list">
+      @for (entry of diaryService.entries(); track entry.id) {
+        <li class="diary-entry">
+          @if (entry.movie.posterUrl) {
+            <img class="poster" [src]="entry.movie.posterUrl" [alt]="entry.movie.title" />
+          } @else {
+            <div class="poster-placeholder">No Image</div>
+          }
+          <div class="entry-info">
+            <h3>{{ entry.movie.title }}</h3>
+            <p class="watched-date">Watched {{ entry.watchedDate }}</p>
+            <app-star-rating [rating]="entry.rating" [readonly]="true" />
+            @if (entry.review) {
+              <p class="review">{{ entry.review }}</p>
+            }
+          </div>
+          <button type="button" class="delete-btn" (click)="delete(entry.id)">Delete</button>
+        </li>
+      }
+    </ul>
+  }
+</div>

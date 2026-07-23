@@ -1,4 +1,5 @@
 export interface Movie {
+  id: number | null;
   tmdbId: number;
   title: string;
   overview: string | null;

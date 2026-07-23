@@ -1,0 +1,49 @@
+.watchlist-page {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.watchlist-page h1 {
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.watchlist-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.remove-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: #ff8a93;
+  border-color: #7a2b34;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem 0;
+}
+
+.state-row {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}

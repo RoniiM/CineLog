@@ -1,0 +1,43 @@
+<div class="profile-page">
+  @if (authService.currentUser(); as user) {
+    <div class="profile-header">
+      @if (user.avatarUrl) {
+        <img class="avatar" [src]="user.avatarUrl" [alt]="user.username" />
+      } @else {
+        <div class="avatar-placeholder">{{ user.username.charAt(0).toUpperCase() }}</div>
+      }
+      <div>
+        <h1>{{ user.username }}</h1>
+        <p class="member-since">Member since {{ user.createdAt | date: 'mediumDate' }}</p>
+        @if (user.bio) {
+          <p class="bio">{{ user.bio }}</p>
+        }
+      </div>
+    </div>
+
+    <form class="edit-form" [formGroup]="form" (ngSubmit)="submit()">
+      <h2>Edit profile</h2>
+
+      <label for="bio">Bio</label>
+      <textarea id="bio" formControlName="bio" rows="3"></textarea>
+
+      <label for="avatarUrl">Avatar URL</label>
+      <input id="avatarUrl" type="text" formControlName="avatarUrl" />
+
+      @if (error()) {
+        <app-error-message [message]="error()" />
+      }
+      @if (success()) {
+        <p class="success-message">Profile updated.</p>
+      }
+
+      <button type="submit" class="submit-btn" [disabled]="saving()">
+        @if (saving()) {
+          <app-loading-spinner />
+        } @else {
+          Save changes
+        }
+      </button>
+    </form>
+  }
+</div>

@@ -22,26 +22,26 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./shared/components/placeholder/placeholder').then((m) => m.PlaceholderComponent),
-        data: { title: 'Discover' }
+          import('./features/discover/discover-page/discover-page').then((m) => m.DiscoverPageComponent)
+      },
+      {
+        path: 'movies/:tmdbId',
+        loadComponent: () =>
+          import('./features/movies/movie-detail/movie-detail').then((m) => m.MovieDetailComponent)
       },
       {
         path: 'diary',
-        loadComponent: () =>
-          import('./shared/components/placeholder/placeholder').then((m) => m.PlaceholderComponent),
-        data: { title: 'Diary' }
+        loadComponent: () => import('./features/diary/diary-page/diary-page').then((m) => m.DiaryPageComponent)
       },
       {
         path: 'watchlist',
         loadComponent: () =>
-          import('./shared/components/placeholder/placeholder').then((m) => m.PlaceholderComponent),
-        data: { title: 'Watchlist' }
+          import('./features/watchlist/watchlist-page/watchlist-page').then((m) => m.WatchlistPageComponent)
       },
       {
         path: 'profile',
         loadComponent: () =>
-          import('./shared/components/placeholder/placeholder').then((m) => m.PlaceholderComponent),
-        data: { title: 'Profile' }
+          import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePageComponent)
       }
     ]
   },

@@ -1,0 +1,150 @@
+.backdrop {
+  height: 260px;
+  background-size: cover;
+  background-position: center 20%;
+  background-color: var(--surface);
+}
+
+.detail-body {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: -80px auto 0;
+}
+
+@media (max-width: 700px) {
+  .detail-body {
+    flex-direction: column;
+    margin-top: -40px;
+  }
+}
+
+.poster-col {
+  flex: 0 0 200px;
+}
+
+.poster,
+.poster-placeholder {
+  width: 200px;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
+.poster-placeholder {
+  background-color: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.info-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.info-col h1 {
+  margin: 0 0 0.25rem;
+  color: var(--text-primary);
+}
+
+.release-date {
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem;
+}
+
+.overview {
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.watchlist-btn {
+  margin: 0.75rem 0 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.watchlist-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.log-section {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}
+
+.log-section h2 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+}
+
+.log-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-width: 400px;
+}
+
+.log-section label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.log-section input,
+.log-section textarea {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.6rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.log-section input:focus,
+.log-section textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.submit-btn {
+  margin-top: 1rem;
+  background-color: var(--accent);
+  color: #1a1400;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.3rem;
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.success-message {
+  color: #7ee787;
+  font-size: 0.85rem;
+}
+
+.state-row {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}

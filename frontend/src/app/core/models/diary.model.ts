@@ -8,3 +8,10 @@ export interface DiaryEntry {
   review: string | null;
   createdAt: string;
 }
+
+export interface DiaryEntryRequest {
+  tmdbId: number;
+  watchedDate: string;
+  rating: number;
+  review: string | null;
+}

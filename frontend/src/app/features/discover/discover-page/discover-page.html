@@ -1,0 +1,30 @@
+<div class="discover-page" appInfiniteScroll [disabled]="loading()" (scrolled)="onScrolled()">
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search movies..."
+      [value]="query()"
+      (input)="onSearchInput($any($event.target).value)"
+    />
+  </div>
+
+  @if (error()) {
+    <app-error-message [message]="error()" />
+  }
+
+  <div class="movie-grid">
+    @for (movie of movies(); track movie.tmdbId) {
+      <app-movie-card [movie]="movie" (clicked)="openMovie($event)" />
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="state-row">
+      <app-loading-spinner />
+    </div>
+  }
+
+  @if (!loading() && movies().length === 0 && !error()) {
+    <p class="empty-state">No movies found.</p>
+  }
+</div>

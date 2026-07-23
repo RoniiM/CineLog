@@ -1,0 +1,72 @@
+@if (loading()) {
+  <div class="state-row">
+    <app-loading-spinner />
+  </div>
+} @else if (error()) {
+  <app-error-message [message]="error()" />
+} @else if (movie(); as m) {
+  <div class="backdrop" [style.background-image]="m.backdropUrl ? 'url(' + m.backdropUrl + ')' : null"></div>
+
+  <div class="detail-body">
+    <div class="poster-col">
+      @if (m.posterUrl) {
+        <img class="poster" [src]="m.posterUrl" [alt]="m.title" />
+      } @else {
+        <div class="poster-placeholder">No Image</div>
+      }
+    </div>
+
+    <div class="info-col">
+      <h1>{{ m.title }}</h1>
+      @if (m.releaseDate) {
+        <p class="release-date">{{ m.releaseDate }}</p>
+      }
+      @if (m.overview) {
+        <p class="overview">{{ m.overview }}</p>
+      }
+
+      <button type="button" class="watchlist-btn" [disabled]="watchlistBusy()" (click)="toggleWatchlist()">
+        @if (inWatchlist()) {
+          Remove from Watchlist
+        } @else {
+          Add to Watchlist
+        }
+      </button>
+
+      <section class="log-section">
+        <h2>Log this movie</h2>
+        <form [formGroup]="logForm" (ngSubmit)="submitLog()">
+          <label for="watchedDate">Watched date</label>
+          <input id="watchedDate" type="date" formControlName="watchedDate" />
+          @if (logForm.controls.watchedDate.invalid && logForm.controls.watchedDate.touched) {
+            <app-error-message message="Watched date is required." />
+          }
+
+          <label>Rating</label>
+          <app-star-rating [rating]="logForm.controls.rating.value" (ratingChange)="setRating($event)" />
+          @if (logForm.controls.rating.invalid && logForm.controls.rating.touched) {
+            <app-error-message message="Please select a rating." />
+          }
+
+          <label for="review">Review</label>
+          <textarea id="review" formControlName="review" rows="3"></textarea>
+
+          @if (logError()) {
+            <app-error-message [message]="logError()" />
+          }
+          @if (logSuccess()) {
+            <p class="success-message">Saved to your diary!</p>
+          }
+
+          <button type="submit" class="submit-btn" [disabled]="logSubmitting()">
+            @if (logSubmitting()) {
+              <app-loading-spinner />
+            } @else {
+              Save to Diary
+            }
+          </button>
+        </form>
+      </section>
+    </div>
+  </div>
+}
